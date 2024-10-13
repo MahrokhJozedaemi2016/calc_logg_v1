@@ -1,4 +1,5 @@
 import pytest
+import logging
 from main import calculate_and_store, display_environment
 
 @pytest.mark.parametrize("a_string, b_string, operation_string, expected_string", [
@@ -18,15 +19,16 @@ def test_calculate_and_store(a_string, b_string, operation_string, expected_stri
     captured = capsys.readouterr().out.strip().rstrip(".")
     assert captured == expected_string.rstrip(".")
 
-def test_display_environment(monkeypatch, capsys):
+def test_display_environment(monkeypatch, caplog):
     """Test that the environment variables are loaded and displayed correctly."""
     # Use monkeypatch to set environment variables for testing
     monkeypatch.setenv("environment", "testing")
     monkeypatch.setenv("database_username", "test_user")
 
-    # Call the function to display the environment information
-    display_environment()
-    
-    # Capture the output and check it includes the expected strings
-    captured = capsys.readouterr().out
-    assert "Running in testing environment with database user test_user" in captured
+    # Use caplog to capture log output at the INFO level
+    with caplog.at_level(logging.INFO):
+        # Call the function to display the environment information
+        display_environment()
+        
+        # Check that the correct log message was captured
+        assert "Running in testing environment with database user test_user" in caplog.text
