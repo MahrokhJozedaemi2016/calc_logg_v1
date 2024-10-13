@@ -1,7 +1,18 @@
+from dotenv import load_dotenv
+import os
 from calculator.calculator import Calculator
 from calculator.calculations import Calculations
-from calculator.commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand  # Import command classes
+from calculator.commands import AddCommand, SubtractCommand, MultiplyCommand, DivideCommand
 from decimal import Decimal, InvalidOperation
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Access environment variables
+environment = os.getenv("environment", "production")
+database_username = os.getenv("database_username", "root")
+
+print(f"Running in {environment} environment with database user {database_username}")
 
 # Available command mappings
 operation_mappings = {
@@ -99,3 +110,4 @@ def interactive_calculator():
 
 if __name__ == "__main__":
     interactive_calculator()
+
