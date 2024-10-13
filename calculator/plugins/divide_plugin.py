@@ -1,3 +1,4 @@
+import logging
 from calculator.commands import Command
 
 class DivideCommand(Command):
@@ -7,8 +8,11 @@ class DivideCommand(Command):
 
     def execute(self):
         if self.b == 0:
+            logging.error("Attempted division by zero.")
             raise ValueError("Cannot divide by zero")
-        return self.a / self.b
+        result = self.a / self.b
+        logging.info(f"Division operation: {self.a} / {self.b} = {result}")
+        return result
 
 def register():
     return DivideCommand

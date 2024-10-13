@@ -1,3 +1,4 @@
+import logging
 from decimal import Decimal
 from typing import Callable
 from calculator.operations import add, subtract, multiply, divide
@@ -9,6 +10,8 @@ class Calculation:
         self.operation = operation  # Store the operation first for readability
         self.a = a  # Assign values for operands a and b
         self.b = b
+        # Log the creation of a new calculation instance
+        logging.info(f"Initialized Calculation: {self.operation.__name__} with operands {self.a} and {self.b}")
 
     # Static method for creating instances, emphasizing flexibility without class instantiation
     @staticmethod
@@ -18,8 +21,11 @@ class Calculation:
 
     def perform(self) -> Decimal:
         """Execute the stored operation and return the resulting value."""
-        # A simple execution call to perform the provided mathematical operation
-        return self.operation(self.a, self.b)
+        # Perform the provided mathematical operation
+        result = self.operation(self.a, self.b)
+        # Log the operation and its result
+        logging.info(f"Performed {self.operation.__name__}: {self.a} {self.operation.__name__} {self.b} = {result}")
+        return result
 
     def __repr__(self):
         """String representation showing the operation and operands."""

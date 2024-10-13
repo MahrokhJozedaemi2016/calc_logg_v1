@@ -1,5 +1,7 @@
 import pytest
-from main import calculate_and_store
+from unittest.mock import patch
+from main import calculate_and_store, display_environment
+
 @pytest.mark.parametrize("a_string, b_string, operation_string, expected_string", [
     ("5", "3", 'add', "The result of add between 5 and 3 is 8"),
     ("10", "2", 'subtract', "The result of subtract between 10 and 2 is 8"),
@@ -13,6 +15,13 @@ from main import calculate_and_store
 ])
 def test_calculate_and_store(a_string, b_string, operation_string, expected_string, capsys):
     """Test the calculate_and_store function with various inputs."""
-    calculate_and_store(a_string, b_string, operation_string)  # Use the correct function
+    calculate_and_store(a_string, b_string, operation_string)
     captured = capsys.readouterr().out.strip().rstrip(".")
     assert captured == expected_string.rstrip(".")
+
+@patch.dict('os.environ', {'environment': 'testing', 'database_username': 'test_user'})
+def test_display_environment(capsys):
+    """Test that the environment variables are loaded and displayed correctly."""
+    display_environment()
+    captured = capsys.readouterr().out
+    assert "Running in testing environment with database user test_user" in captured

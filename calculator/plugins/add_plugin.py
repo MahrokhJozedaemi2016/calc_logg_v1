@@ -1,3 +1,4 @@
+import logging
 from calculator.commands import Command
 
 class AddCommand(Command):
@@ -6,7 +7,9 @@ class AddCommand(Command):
         self.b = b
 
     def execute(self):
-        return self.a + self.b
+        result = self.a + self.b
+        logging.info(f"Add operation: {self.a} + {self.b} = {result}")
+        return result
 
 def register():
     return AddCommand
