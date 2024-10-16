@@ -67,6 +67,9 @@ def calculate_and_store(a, b, operation_name):
         
         # Store the calculation in history
         Calculations.add_calculation(command)
+    except ValueError as ve:
+        logging.error(ve)
+        print(f"An error occurred: {ve}")
     except ZeroDivisionError:
         logging.error("Division by zero attempted.")
         print("Error: Division by zero.")
