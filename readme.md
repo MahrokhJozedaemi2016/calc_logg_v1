@@ -10,10 +10,10 @@ This project is a Python-based interactive calculator that performs basic arithm
 
 ## Installation
 Clone the Repository:
- ```bash
-git clone https://github.com/your-username/calc_logg_v1.git
-cd calc_logg_v1
- ```
+  ```bash
+ git clone https://github.com/your-username/calc_logg_v1.git
+ cd calc_logg_v1
+  ```
 ## Set Up Virtual Environment:
 ``` bash
 python3 -m venv venv
